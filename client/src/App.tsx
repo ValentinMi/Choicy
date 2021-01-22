@@ -1,10 +1,9 @@
-import { Box, ChakraProvider, Heading, theme } from "@chakra-ui/react";
+import { ChakraProvider, theme } from "@chakra-ui/react";
 import * as React from "react";
+import Router from "./Router";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Heading>Hello Choicy</Heading>
-    </Box>
+    <Router />
   </ChakraProvider>
 );
