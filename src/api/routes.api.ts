@@ -1,4 +1,4 @@
-const BASE_URL = "http://172.23.45.178:8000/api";
+const BASE_URL = `${process.env.REACT_APP_API_BASE_URL}/api`;
 
 const ROUTES = Object.freeze({
   CHOICES: BASE_URL + "/choices",
