@@ -1,9 +1,18 @@
 import { Box, Center, Heading } from "@chakra-ui/react";
 import React from "react";
+import { IProposal } from "../types";
 
-interface ChoiceProps {}
+interface ProposalProps {
+  info: IProposal;
+  proposalIndex: number;
+  onProposalClick: (proposalIndex: number) => Promise<void>;
+}
 
-const Choice: React.FC<ChoiceProps> = () => {
+const Proposal: React.FC<ProposalProps> = ({
+  info,
+  proposalIndex,
+  onProposalClick,
+}) => {
   return (
     <Box
       className="parent"
@@ -11,12 +20,13 @@ const Choice: React.FC<ChoiceProps> = () => {
       w="100%"
       overflow="hidden"
       position="relative"
+      onClick={() => onProposalClick(proposalIndex)}
     >
       <Center
         h="100%"
         w="100%"
         className="choice"
-        bgImage="url('https://picsum.photos/1920/1080')"
+        bgImage={`url(${info.imageUrl})`}
         backgroundPosition="center"
         bgSize="cover"
         bgRepeat="no-repeat"
@@ -28,15 +38,15 @@ const Choice: React.FC<ChoiceProps> = () => {
           size="lg"
           color="white"
           fontWeight="bold"
-          bgColor="rgba(255, 255, 255, 0.2)"
+          bgColor="black"
           borderRadius="10px"
-          p="5px"
+          p="10px"
         >
-          Lorem
+          {info.title}
         </Heading>
       </Center>
     </Box>
   );
 };
 
-export default Choice;
+export default Proposal;
