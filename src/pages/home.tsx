@@ -41,7 +41,7 @@ const Home: React.FC<HomeProps> = () => {
   }, []);
 
   return (
-    <Box>
+    <Box bg="black">
       {choices.length > 0 && (
         <Box>
           <SimpleGrid columns={2} row={2} overflow="hidden" position="relative">
