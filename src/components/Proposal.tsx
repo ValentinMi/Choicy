@@ -1,4 +1,4 @@
-import { Box, Center, Heading } from "@chakra-ui/react";
+import { Box, Center, Heading, keyframes } from "@chakra-ui/react";
 import React from "react";
 import { IProposal } from "../types";
 
@@ -13,19 +13,23 @@ const Proposal: React.FC<ProposalProps> = ({
   proposalIndex,
   onProposalClick,
 }) => {
+  const fade = keyframes`
+    from { opacity: 0}; }
+    to { opacity: 1}; }
+  `;
+
   return (
     <Box
-      className="parent"
       h="50vh"
       w="100%"
       overflow="hidden"
       position="relative"
+      animation={`${fade} ease 2s`}
       onClick={() => onProposalClick(proposalIndex)}
     >
       <Center
         h="100%"
         w="100%"
-        className="choice"
         bgImage={`url(${info.imageUrl})`}
         backgroundPosition="center"
         bgSize="cover"

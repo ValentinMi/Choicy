@@ -11,6 +11,7 @@ interface HomeProps {}
 const Home: React.FC<HomeProps> = () => {
   const [choices, setChoices] = useState<IChoice[]>([]);
   const [currentChoiceIndex, setCurrentChoiceIndex] = useState<number>(0);
+  const [choiceHistory, setChoiceHistory] = useState<string[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleNextClick = () => {
@@ -19,7 +20,9 @@ const Home: React.FC<HomeProps> = () => {
   };
 
   const handleProposalClick = async (proposalIndex: number) => {
+    if (choiceHistory.includes(choices[currentChoiceIndex]._id)) return;
     await putProposalChoice(choices[currentChoiceIndex]._id, proposalIndex);
+    setChoiceHistory([...choiceHistory, choices[currentChoiceIndex]._id]);
     onOpen();
   };
 
@@ -38,7 +41,7 @@ const Home: React.FC<HomeProps> = () => {
   }, []);
 
   return (
-    <Box>
+    <Box bg="black">
       {choices.length > 0 && (
         <Box>
           <SimpleGrid columns={2} row={2} overflow="hidden" position="relative">

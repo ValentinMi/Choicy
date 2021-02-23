@@ -1,9 +1,9 @@
-import { Box, Button, Flex, Heading } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { getChoiceById } from "../../api/choices.api";
-import { IChoice } from "../../types";
-import "./index.css";
-import ResultLine from "../ResultLine";
+import { Box, Button, Flex, Heading, keyframes } from "@chakra-ui/react";
+import { CSSObject } from "@emotion/react";
+import React, { useEffect, useMemo, useState } from "react";
+import { getChoiceById } from "../api/choices.api";
+import { IChoice } from "../types";
+import ResultLine from "./ResultLine";
 
 interface ChoiceResultProps {
   choiceObjectId: string;
@@ -24,7 +24,7 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
     ...choice,
     proposals: choice.proposals.map((propo) => ({
       ...propo,
-      rate: isNaN((propo.chosen / choice.vote) * 100)
+      rate: isNaN((propo.chosen / choice.vote) * 100) // Check if a value equal 0 => avoid NaN
         ? 0
         : (propo.chosen / choice.vote) * 100,
     })),
@@ -41,6 +41,24 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
     }
   }, [choiceObjectId, isOpen]);
 
+  const fade = keyframes`
+  from { opacity: 0}; }
+  to { opacity: 1}; }
+`;
+
+  const style = useMemo(() => {
+    const base: CSSObject = {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      backgroundColor: "white",
+    };
+    if (isOpen)
+      return { ...base, borderRadius: "10px", height: "400px", width: "500px" };
+    return { ...base, borderRadius: "50%", height: "80px", width: "80px" };
+  }, [isOpen]);
+
   return (
     <>
       {isOpen && (
@@ -54,9 +72,8 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
         />
       )}
       <Flex
-        className={`choiceresult ${
-          isOpen ? "choiceresult-active" : "choiceresult-unactive"
-        }`}
+        animation={isOpen ? `${fade} ease 1.2s` : "none"}
+        css={style}
         direction="column"
         justify="center"
         align="center"
@@ -85,10 +102,17 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
             ))}
           </Flex>
         )}
-        {isOpen && isLastChoice() === false && (
+        {isOpen && isLastChoice() === false ? (
           <Button onClick={onNextClick} colorScheme="blue" mt={2}>
             Next choice
           </Button>
+        ) : (
+          isLastChoice() &&
+          isOpen && (
+            <Heading size="md" mt={2}>
+              No more choices 😅
+            </Heading>
+          )
         )}
       </Flex>
     </>
