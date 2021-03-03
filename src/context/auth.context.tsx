@@ -4,6 +4,7 @@ import { login as APILogin } from "../api/auth.api";
 import jwt_decode from "jwt-decode";
 import useSessionStorage from "../hooks/useSessionStorage";
 import { AUTH_STORAGE_KEY } from "../constants/auth.constants";
+import axios from "axios";
 
 type AuthState = {
   user: IUser | null;
@@ -11,7 +12,8 @@ type AuthState = {
 
 type AuthContextType = {
   state: AuthState;
-  login: (crendentials: ICredentials) => void;
+  login: (crendentials: ICredentials) => Promise<void>;
+  isLoading: boolean;
 };
 
 const initialState: AuthState = {
@@ -20,21 +22,33 @@ const initialState: AuthState = {
 
 export const AuthContext = createContext<AuthContextType>({
   state: initialState,
-  login: () => {},
+  login: () => {
+    return new Promise((resolve) => {
+      resolve();
+    });
+  },
+  isLoading: true,
 });
 
 interface AuthProviderInterface {}
 
 const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
   const [state, setState] = useState<AuthState>(initialState);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { getStoredData, setStoredData } = useSessionStorage(AUTH_STORAGE_KEY);
+
+  const setTokenInAxiosHeaders = (token: string) => {
+    axios.defaults.headers.common[process.env.HTTP_TOKEN_HEADER!] = token;
+  };
 
   const login = async (credentials: ICredentials) => {
     try {
       const token = await APILogin(credentials);
       const user: IUser = jwt_decode(token);
       setStoredData(token);
+      setTokenInAxiosHeaders(token);
       setState({ ...state, user });
+      setIsLoading(false);
     } catch (error) {
       console.log("Error on authenticate user", error);
     }
@@ -44,13 +58,15 @@ const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
   useEffect(() => {
     const storedToken = getStoredData();
     if (storedToken) {
+      setTokenInAxiosHeaders(storedToken);
       const user: IUser = jwt_decode(storedToken);
-      setState({ ...state, user });
+      setState((s) => ({ ...s, user }));
     }
-  }, [getStoredData, state]);
+    setIsLoading(false);
+  }, [getStoredData]);
 
   return (
-    <AuthContext.Provider value={{ state, login }}>
+    <AuthContext.Provider value={{ state, login, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
