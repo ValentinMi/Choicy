@@ -29,7 +29,7 @@ const Router: React.FC<RouterProps> = () => {
             path="/backoffice"
             condition={user?.isAdmin === true}
             component={BackOffice}
-            redirectPath="/"
+            redirectPath="/login"
           />
         </>
       )}
