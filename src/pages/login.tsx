@@ -11,7 +11,7 @@ import { AuthContext } from "../context/auth.context";
 
 interface LoginProps {}
 
-const Login: React.FC<LoginProps> = ({}) => {
+const Login: React.FC<LoginProps> = () => {
   const { login } = useContext(AuthContext);
 
   const [loginForm, setLoginForm] = useState({
