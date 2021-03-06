@@ -25,7 +25,6 @@ const Router: React.FC<RouterProps> = () => {
             redirectPath="/"
           />
           <PrivateRoute
-            exact
             path="/backoffice"
             condition={user?.isAdmin === true}
             component={BackOffice}
