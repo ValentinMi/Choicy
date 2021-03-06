@@ -5,11 +5,9 @@ interface ChoicesListProps {}
 
 const ChoicesList: React.FC<ChoicesListProps> = () => {
   return (
-    <>
-      <Box>
-        <Heading>ChoicesList</Heading>
-      </Box>
-    </>
+    <Box>
+      <Heading>ChoicesList</Heading>
+    </Box>
   );
 };
 

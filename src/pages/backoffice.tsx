@@ -11,13 +11,13 @@ const BackOffice: React.FC<BackOfficeProps> = () => {
     state: { user },
   } = useContext(AuthContext);
   return (
-    <>
+    <Box>
       <Box width="100%" display="flex" justifyContent="space-around">
         <DrawerMenu />
         <Heading>Welcome {user!.username}</Heading>
       </Box>
       <RouterBackoffice />
-    </>
+    </Box>
   );
 };
 
