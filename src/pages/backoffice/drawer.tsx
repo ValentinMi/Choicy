@@ -62,6 +62,7 @@ const DrawerMenu: React.FC<DrawerProps> = ({ children }) => {
                         _focus={{
                           boxShadow: "none",
                         }}
+                        onClick={onClose}
                       >
                         {link.label}
                       </Link>
