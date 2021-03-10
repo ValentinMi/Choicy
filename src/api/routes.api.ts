@@ -6,6 +6,7 @@ const ROUTES = Object.freeze({
   PROPOSAL_CHOICE: (choideId: string, proposalIndex: number) =>
     BASE_URL + `/choices/chosen/${choideId}/${proposalIndex}`,
   AUTH: BASE_URL + "/auth",
+  USERS: BASE_URL + "/users",
 });
 
 export default ROUTES;

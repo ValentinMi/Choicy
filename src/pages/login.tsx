@@ -5,8 +5,10 @@ import {
   FormLabel,
   Input,
   Button,
+  Link,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
 interface LoginProps {}
@@ -56,6 +58,12 @@ const Login: React.FC<LoginProps> = () => {
             </Button>
           </Center>
         </form>
+        <Center mt={2}>
+          Don't have an account yet?
+          <Link as={RouterLink} to="/register" color="blue.500" ml={1}>
+            Sign Up
+          </Link>
+        </Center>
       </Box>
     </Center>
   );
