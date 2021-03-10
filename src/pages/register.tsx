@@ -16,15 +16,15 @@ import useSessionStorage from "../hooks/useSessionStorage";
 export interface RegisterProps {}
 
 const Register: React.FC<RegisterProps> = () => {
-  const [registerForm, setregisterForm] = useState({
+  const [registerForm, setRegisterForm] = useState({
     username: "",
     password: "",
     password2: "",
   });
-  const { getStoredData, setStoredData } = useSessionStorage(AUTH_STORAGE_KEY);
+  const { setStoredData } = useSessionStorage(AUTH_STORAGE_KEY);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setregisterForm({ ...registerForm, [e.target.name]: e.target.value });
+    setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,10 +85,10 @@ const Register: React.FC<RegisterProps> = () => {
             </Button>
           </Center>
         </form>
-        <Center>
-          Déjà un compte ?
+        <Center mt={2}>
+          Already have an account ?
           <Link as={RouterLink} to="/login" color="blue.500" ml={1}>
-            Cliquez ici !
+            Sign In
           </Link>
         </Center>
       </Box>

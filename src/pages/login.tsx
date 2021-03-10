@@ -58,10 +58,10 @@ const Login: React.FC<LoginProps> = () => {
             </Button>
           </Center>
         </form>
-        <Center>
-          Pas encore de compte ?
+        <Center mt={2}>
+          Don't have an account yet?
           <Link as={RouterLink} to="/register" color="blue.500" ml={1}>
-            Cliquez ici !
+            Sign Up
           </Link>
         </Center>
       </Box>

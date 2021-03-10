@@ -77,7 +77,7 @@ const Home: React.FC<HomeProps> = () => {
             ></IconButton>
           </Link>
         ) : (
-          <Box>
+          <Box m={2}>
             <Link
               as={RouterLink}
               to="/login"
