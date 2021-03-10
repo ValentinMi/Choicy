@@ -55,7 +55,13 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
       backgroundColor: "white",
     };
     if (isOpen)
-      return { ...base, borderRadius: "10px", height: "400px", width: "500px" };
+      return {
+        ...base,
+        borderRadius: "10px",
+        padding: "2rem",
+        width: "70vw",
+        maxWidth: "500px",
+      };
     return { ...base, borderRadius: "50%", height: "80px", width: "80px" };
   }, [isOpen]);
 
@@ -69,6 +75,7 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
           bottom={0}
           left={0}
           backgroundColor="rgba(0, 0,0, 0.5)"
+          zIndex={6}
         />
       )}
       <Flex
@@ -77,6 +84,7 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
         direction="column"
         justify="center"
         align="center"
+        zIndex={7}
       >
         {!isOpen ? (
           <Heading
@@ -96,7 +104,7 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
             justify="center"
           >
             {choice?.proposals.map((propo, i) => (
-              <Box my={5} key={"result" + i}>
+              <Box my={[2, 2, 5]} key={"result" + i}>
                 <ResultLine label={propo.title} rate={propo.rate!} />
               </Box>
             ))}
@@ -109,7 +117,7 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
         ) : (
           isLastChoice() &&
           isOpen && (
-            <Heading size="md" mt={2}>
+            <Heading size="md" mt={2} textAlign="center">
               No more choices 😅
             </Heading>
           )

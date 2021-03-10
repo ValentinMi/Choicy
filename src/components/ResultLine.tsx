@@ -8,8 +8,10 @@ interface ResultLineProps {
 
 const ResultLine: React.FC<ResultLineProps> = ({ label, rate }) => {
   return (
-    <SimpleGrid columns={3}>
-      <Text justifySelf="center">{label}:</Text>
+    <SimpleGrid columns={[1, 3]}>
+      <Text justifySelf="center" mx={3}>
+        {label}:
+      </Text>
       <Progress
         hasStripe
         value={rate}
@@ -17,8 +19,11 @@ const ResultLine: React.FC<ResultLineProps> = ({ label, rate }) => {
         w="100%"
         alignSelf="center"
         justifySelf="center"
+        mx={3}
       />
-      <Text justifySelf="center">{Math.floor(rate!)} %</Text>
+      <Text justifySelf="center" mx={3}>
+        {Math.floor(rate!)} %
+      </Text>
     </SimpleGrid>
   );
 };

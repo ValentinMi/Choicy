@@ -4,6 +4,8 @@ import { AuthContext } from "./context/auth.context";
 import BackOffice from "./pages/backoffice";
 import Home from "./pages/home";
 import Login from "./pages/login";
+import Profile from "./pages/profile";
+import Register from "./pages/register";
 
 interface RouterProps {}
 
@@ -15,6 +17,7 @@ const Router: React.FC<RouterProps> = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
+
       {!isLoading && (
         <>
           <PrivateRoute
@@ -23,6 +26,19 @@ const Router: React.FC<RouterProps> = () => {
             condition={user === null}
             component={Login}
             redirectPath="/"
+          />
+          <PrivateRoute
+            path="/register"
+            condition={user === null}
+            component={Register}
+            redirectPath="/"
+          />
+          <PrivateRoute
+            exact
+            path="/profile"
+            condition={user != null}
+            component={Profile}
+            redirectPath="/login"
           />
           <PrivateRoute
             path="/backoffice"

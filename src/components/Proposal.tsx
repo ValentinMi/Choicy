@@ -36,6 +36,8 @@ const Proposal: React.FC<ProposalProps> = ({
         bgRepeat="no-repeat"
         transition="all 1.5s"
         _hover={{ transform: "scale(1.2)" }}
+        p={5}
+        textAlign="center"
       >
         <Heading
           as="h2"
