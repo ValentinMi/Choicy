@@ -5,6 +5,7 @@ import {
   useDisclosure,
   IconButton,
   Link,
+  Flex,
 } from "@chakra-ui/react";
 import { CgProfile } from "react-icons/cg";
 import React, { useCallback, useContext, useEffect, useState } from "react";
@@ -77,12 +78,12 @@ const Home: React.FC<HomeProps> = () => {
             ></IconButton>
           </Link>
         ) : (
-          <Box m={2}>
+          <Flex m={[1, 2]} direction={["column", "row"]} alignItems="flex-end">
             <Link
               as={RouterLink}
               to="/login"
               opacity="0.5"
-              m={2}
+              m={[1, 2]}
               _hover={{ textDecoration: "none", opacity: 1 }}
             >
               <Button size="md">Sign in</Button>
@@ -91,12 +92,12 @@ const Home: React.FC<HomeProps> = () => {
               as={RouterLink}
               to="/register"
               opacity="0.5"
-              m={2}
+              m={[1, 2]}
               _hover={{ textDecoration: "none", opacity: 1 }}
             >
               <Button size="md">Sign Up</Button>
             </Link>
-          </Box>
+          </Flex>
         )}
       </Box>
       {choices.length > 0 && (

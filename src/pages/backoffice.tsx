@@ -1,7 +1,7 @@
 import { Box, Heading } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
-import RouterBackoffice from "../BackofficeRouter";
+import RouterBackOffice from "../BackOfficeRouter";
 import DrawerMenu from "./backoffice/drawer";
 
 interface BackOfficeProps {}
@@ -16,7 +16,7 @@ const BackOffice: React.FC<BackOfficeProps> = () => {
         <DrawerMenu />
         <Heading>Welcome {user!.username}</Heading>
       </Box>
-      <RouterBackoffice />
+      <RouterBackOffice />
     </Box>
   );
 };

@@ -5,9 +5,9 @@ import Categories from "./pages/backoffice/categories";
 import ChoicesList from "./pages/backoffice/choicesList";
 import Users from "./pages/backoffice/users";
 
-interface RouterBackofficeProps {}
+interface RouterBackOfficeProps {}
 
-const RouterBackoffice: React.FC<RouterBackofficeProps> = () => {
+const RouterBackOffice: React.FC<RouterBackOfficeProps> = () => {
   return (
     <Switch>
       <Route
@@ -22,4 +22,4 @@ const RouterBackoffice: React.FC<RouterBackofficeProps> = () => {
   );
 };
 
-export default RouterBackoffice;
+export default RouterBackOffice;
