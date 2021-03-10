@@ -1,8 +1,18 @@
-import { Box, SimpleGrid, useDisclosure } from "@chakra-ui/react";
-import React, { useCallback, useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  SimpleGrid,
+  useDisclosure,
+  IconButton,
+  Link,
+} from "@chakra-ui/react";
+import { CgProfile } from "react-icons/cg";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { getChoices, putProposalChoice } from "../api/choices.api";
 import ChoiceResult from "../components/ChoiceResult";
 import Proposal from "../components/Proposal";
+import { AuthContext } from "../context/auth.context";
 import { IChoice } from "../types";
 import shuffleArray from "../utils/shuffleArray";
 
@@ -13,6 +23,9 @@ const Home: React.FC<HomeProps> = () => {
   const [currentChoiceIndex, setCurrentChoiceIndex] = useState<number>(0);
   const [choiceHistory, setChoiceHistory] = useState<string[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    state: { user },
+  } = useContext(AuthContext);
 
   const handleNextClick = () => {
     onClose();
@@ -42,6 +55,50 @@ const Home: React.FC<HomeProps> = () => {
 
   return (
     <Box bg="black">
+      <Box
+        w="100%"
+        position="absolute"
+        zIndex="5"
+        display="flex"
+        justifyContent="flex-end"
+      >
+        {user ? (
+          <Link
+            as={RouterLink}
+            to="/profile"
+            opacity="0.5"
+            m={2}
+            _hover={{ opacity: 1 }}
+          >
+            <IconButton
+              size="md"
+              aria-label="profile"
+              icon={<CgProfile size={25} />}
+            ></IconButton>
+          </Link>
+        ) : (
+          <Box>
+            <Link
+              as={RouterLink}
+              to="/login"
+              opacity="0.5"
+              m={2}
+              _hover={{ textDecoration: "none", opacity: 1 }}
+            >
+              <Button size="md">Sign in</Button>
+            </Link>
+            <Link
+              as={RouterLink}
+              to="/register"
+              opacity="0.5"
+              m={2}
+              _hover={{ textDecoration: "none", opacity: 1 }}
+            >
+              <Button size="md">Sign Up</Button>
+            </Link>
+          </Box>
+        )}
+      </Box>
       {choices.length > 0 && (
         <Box>
           <SimpleGrid columns={2} row={2} overflow="hidden" position="relative">
