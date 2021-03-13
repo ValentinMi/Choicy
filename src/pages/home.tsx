@@ -1,22 +1,20 @@
 import {
   Box,
   Button,
+  Flex,
+  Link,
   SimpleGrid,
   useDisclosure,
-  IconButton,
-  Link,
-  Flex,
 } from "@chakra-ui/react";
-import { CgProfile } from "react-icons/cg";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { getChoices, putProposalChoice } from "../api/choices.api";
 import ChoiceResult from "../components/ChoiceResult";
+import ProfileMenu from "../components/ProfileMenu";
 import Proposal from "../components/Proposal";
 import { AuthContext } from "../context/auth.context";
 import { IChoice } from "../types";
 import shuffleArray from "../utils/shuffleArray";
-
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
@@ -32,7 +30,6 @@ const Home: React.FC<HomeProps> = () => {
     onClose();
     setCurrentChoiceIndex((idx) => idx + 1);
   };
-
   const handleProposalClick = async (proposalIndex: number) => {
     if (choiceHistory.includes(choices[currentChoiceIndex]._id)) return;
     await putProposalChoice(choices[currentChoiceIndex]._id, proposalIndex);
@@ -64,19 +61,7 @@ const Home: React.FC<HomeProps> = () => {
         justifyContent="flex-end"
       >
         {user ? (
-          <Link
-            as={RouterLink}
-            to="/profile"
-            opacity="0.5"
-            m={2}
-            _hover={{ opacity: 1 }}
-          >
-            <IconButton
-              size="md"
-              aria-label="profile"
-              icon={<CgProfile size={25} />}
-            ></IconButton>
-          </Link>
+          <ProfileMenu />
         ) : (
           <Flex m={[1, 2]} direction={["column", "row"]} alignItems="flex-end">
             <Link
