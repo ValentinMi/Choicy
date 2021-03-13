@@ -7,6 +7,6 @@ export const login = async (credentials: ICredentials) => {
     const { data } = await axios.post(ROUTES.AUTH, credentials);
     return data;
   } catch (error) {
-    console.log(error.message);
+    return error;
   }
 };

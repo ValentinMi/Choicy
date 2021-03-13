@@ -5,8 +5,6 @@ import jwt_decode from "jwt-decode";
 import useSessionStorage from "../hooks/useSessionStorage";
 import { AUTH_STORAGE_KEY } from "../constants/auth.constants";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
-
 type AuthState = {
   user: IUser | null;
 };
@@ -14,7 +12,9 @@ type AuthState = {
 type AuthContextType = {
   state: AuthState;
   login: (crendentials: ICredentials) => Promise<void>;
+  logout: () => void;
   isLoading: boolean;
+  errorLogin: boolean;
 };
 
 const initialState: AuthState = {
@@ -28,7 +28,11 @@ export const AuthContext = createContext<AuthContextType>({
       resolve();
     });
   },
+  logout: () => {
+    return;
+  },
   isLoading: true,
+  errorLogin: false,
 });
 
 interface AuthProviderInterface {}
@@ -36,9 +40,11 @@ interface AuthProviderInterface {}
 const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
   const [state, setState] = useState<AuthState>(initialState);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { getStoredData, setStoredData } = useSessionStorage(AUTH_STORAGE_KEY);
+  const [errorLogin, setErrorLogin] = useState<boolean>(false);
+  const { getStoredData, setStoredData, deleteStoredData } = useSessionStorage(
+    AUTH_STORAGE_KEY
+  );
 
-  const history = useHistory<{ from: { pathname: string } }>();
   const setTokenInAxiosHeaders = (token: string) => {
     axios.defaults.headers.common[process.env.HTTP_TOKEN_HEADER!] = token;
   };
@@ -51,10 +57,14 @@ const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
       setTokenInAxiosHeaders(token);
       setState({ ...state, user });
       setIsLoading(false);
-      if (user?.isAdmin) history.push("/backoffice");
     } catch (error) {
-      console.log("Error on authenticate user", error);
+      setErrorLogin(true);
     }
+  };
+  const logout = () => {
+    const user = null;
+    deleteStoredData();
+    setState({ ...state, user });
   };
 
   // Auto auth if token stored
@@ -69,7 +79,9 @@ const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
   }, [getStoredData]);
 
   return (
-    <AuthContext.Provider value={{ state, login, isLoading }}>
+    <AuthContext.Provider
+      value={{ state, login, logout, isLoading, errorLogin }}
+    >
       {children}
     </AuthContext.Provider>
   );

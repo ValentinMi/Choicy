@@ -10,17 +10,17 @@ import {
 import React, { useContext, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
+import ErrorMessage from "../components/ErrorMessage";
 
 interface LoginProps {}
 
 const Login: React.FC<LoginProps> = () => {
-  const { login } = useContext(AuthContext);
+  const { login, errorLogin } = useContext(AuthContext);
 
   const [loginForm, setLoginForm] = useState({
     username: "",
     password: "",
   });
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
   };
@@ -32,8 +32,9 @@ const Login: React.FC<LoginProps> = () => {
   return (
     <Center h="100vh">
       <Box boxShadow="dark-lg" p={5}>
+        {errorLogin && <ErrorMessage children="Wrong username or password" />}
         <form onSubmit={handleSubmit}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel>Username</FormLabel>
             <Input
               onChange={handleChange}
@@ -42,13 +43,14 @@ const Login: React.FC<LoginProps> = () => {
             />
           </FormControl>
           <Box mt={4}>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel>Password</FormLabel>
               <Input
                 onChange={handleChange}
                 name="password"
                 type="password"
                 value={loginForm.password}
+                autoComplete="on"
               />
             </FormControl>
           </Box>

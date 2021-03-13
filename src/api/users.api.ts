@@ -7,6 +7,6 @@ export const register = async (credentials: ICredentials) => {
     const response = await axios.post(ROUTES.USERS, credentials);
     return response;
   } catch (error) {
-    console.log(error.message);
+    return error;
   }
 };
