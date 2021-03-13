@@ -5,8 +5,6 @@ import jwt_decode from "jwt-decode";
 import useSessionStorage from "../hooks/useSessionStorage";
 import { AUTH_STORAGE_KEY } from "../constants/auth.constants";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
-
 type AuthState = {
   user: IUser | null;
 };
@@ -47,7 +45,6 @@ const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
     AUTH_STORAGE_KEY
   );
 
-  const history = useHistory<{ from: { pathname: string } }>();
   const setTokenInAxiosHeaders = (token: string) => {
     axios.defaults.headers.common[process.env.HTTP_TOKEN_HEADER!] = token;
   };
@@ -60,7 +57,6 @@ const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
       setTokenInAxiosHeaders(token);
       setState({ ...state, user });
       setIsLoading(false);
-      if (user?.isAdmin) history.push("/backoffice");
     } catch (error) {
       setErrorLogin(true);
     }
