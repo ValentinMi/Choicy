@@ -31,7 +31,7 @@ const Login: React.FC<LoginProps> = () => {
   };
   return (
     <Center h="100vh">
-      <Box boxShadow="dark-lg" p={5}>
+      <Box boxShadow="dark-lg" p={5} maxW={["291px", "auto"]}>
         {errorLogin && <ErrorMessage children="Wrong username or password" />}
         <form onSubmit={handleSubmit}>
           <FormControl isRequired>

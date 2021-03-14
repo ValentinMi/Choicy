@@ -7,12 +7,13 @@ import {
   Button,
   Link,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import { register } from "../api/users.api";
 import { AUTH_STORAGE_KEY } from "../constants/auth.constants";
 import useSessionStorage from "../hooks/useSessionStorage";
 import ErrorMessage from "../components/ErrorMessage";
+import { AuthContext } from "../context/auth.context";
 
 export interface RegisterProps {}
 
@@ -22,8 +23,13 @@ const Register: React.FC<RegisterProps> = () => {
     password: "",
     confirm_password: "",
   });
+  let history = useHistory();
+  let {
+    state: { user },
+    setUser,
+  } = useContext(AuthContext);
   const [error, setError] = useState<string | boolean>(false);
-  const { setStoredData } = useSessionStorage(AUTH_STORAGE_KEY);
+  const { setStoredData, getStoredData } = useSessionStorage(AUTH_STORAGE_KEY);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
@@ -32,14 +38,17 @@ const Register: React.FC<RegisterProps> = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (registerForm.password === registerForm.confirm_password) {
-      const response = await register({
+      const res = await register({
         username: registerForm.username,
         password: registerForm.password,
       });
-      if (response.response.status >= 400 && response.response.status <= 410) {
-        setError(response.response.data);
+      if (res?.response?.status >= 400 && res?.response?.status <= 410) {
+        setError(res.response.data);
       } else {
-        setStoredData(response?.headers["choicy-auth-token"]);
+        if (res.headers["choicy-auth-token"]) {
+          setStoredData(res.headers["choicy-auth-token"]);
+          setUser(res.headers["choicy-auth-token"]);
+        }
       }
     } else {
       setError("Passwords don't match");
@@ -48,7 +57,7 @@ const Register: React.FC<RegisterProps> = () => {
 
   return (
     <Center h="100vh">
-      <Box boxShadow="dark-lg" p={5}>
+      <Box boxShadow="dark-lg" p={5} maxW={["280px", "auto"]}>
         <form onSubmit={handleSubmit}>
           {error && <ErrorMessage children={error} />}
           <FormControl isRequired>
