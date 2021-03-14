@@ -15,6 +15,7 @@ type AuthContextType = {
   logout: () => void;
   isLoading: boolean;
   errorLogin: boolean;
+  setUser: (token: string) => void;
 };
 
 const initialState: AuthState = {
@@ -28,9 +29,8 @@ export const AuthContext = createContext<AuthContextType>({
       resolve();
     });
   },
-  logout: () => {
-    return;
-  },
+  logout: () => {},
+  setUser: () => {},
   isLoading: true,
   errorLogin: false,
 });
@@ -67,6 +67,11 @@ const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
     setState({ ...state, user });
   };
 
+  const setUser = (token: string) => {
+    const decode: IUser = jwt_decode(token);
+    setState({ ...state, user: decode });
+  };
+
   // Auto auth if token stored
   useEffect(() => {
     const storedToken = getStoredData();
@@ -80,7 +85,7 @@ const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ state, login, logout, isLoading, errorLogin }}
+      value={{ state, login, logout, setUser, isLoading, errorLogin }}
     >
       {children}
     </AuthContext.Provider>

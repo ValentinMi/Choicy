@@ -58,7 +58,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = () => {
             onClick={logout}
             _hover={{ textDecoration: "none" }}
           >
-            <MenuItem>Disconnect</MenuItem>
+            <MenuItem>Logout</MenuItem>
           </Link>
         </MenuList>
       </Menu>
