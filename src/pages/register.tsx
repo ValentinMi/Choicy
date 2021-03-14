@@ -7,8 +7,8 @@ import {
   Button,
   Link,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
-import { Link as RouterLink, useHistory } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { register } from "../api/users.api";
 import { AUTH_STORAGE_KEY } from "../constants/auth.constants";
 import useSessionStorage from "../hooks/useSessionStorage";
@@ -23,13 +23,9 @@ const Register: React.FC<RegisterProps> = () => {
     password: "",
     confirm_password: "",
   });
-  let history = useHistory();
-  let {
-    state: { user },
-    setUser,
-  } = useContext(AuthContext);
+  let { setUser } = useContext(AuthContext);
   const [error, setError] = useState<string | boolean>(false);
-  const { setStoredData, getStoredData } = useSessionStorage(AUTH_STORAGE_KEY);
+  const { setStoredData } = useSessionStorage(AUTH_STORAGE_KEY);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
