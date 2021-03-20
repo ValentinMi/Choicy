@@ -30,7 +30,9 @@ const Proposal: React.FC<ProposalProps> = ({
       <Center
         h="100%"
         w="100%"
-        bgImage={`url(${info.imageUrl})`}
+        bgImage={`url("data:${
+          info.image.contentType
+        };base64,${info.image.data.toString("base64")}")`}
         backgroundPosition="center"
         bgSize="cover"
         bgRepeat="no-repeat"

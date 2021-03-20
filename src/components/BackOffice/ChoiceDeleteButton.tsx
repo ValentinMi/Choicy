@@ -11,7 +11,7 @@ import {
 import { Portal } from "@chakra-ui/portal";
 import React from "react";
 
-import { deleteChoiceById } from "../api/choices.api";
+import { deleteChoiceById } from "../../api/choices.api";
 interface ChoiceDeleteButtonProps {
   id: string;
   refresh: Function;
