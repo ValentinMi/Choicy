@@ -1,21 +1,14 @@
-import { Box, Heading } from "@chakra-ui/react";
-import React, { useContext } from "react";
-import { AuthContext } from "../context/auth.context";
+import { Box } from "@chakra-ui/react";
+import React from "react";
 import RouterBackOffice from "../BackOfficeRouter";
-import DrawerMenu from "./backoffice/drawer";
+import DrawerMenu from "../components/Drawer";
 
 interface BackOfficeProps {}
 
 const BackOffice: React.FC<BackOfficeProps> = () => {
-  const {
-    state: { user },
-  } = useContext(AuthContext);
   return (
-    <Box>
-      <Box width="100%" display="flex" justifyContent="space-around">
-        <DrawerMenu />
-        <Heading>Welcome {user!.username}</Heading>
-      </Box>
+    <Box margin="0" padding="0" position="relative">
+      <DrawerMenu />
       <RouterBackOffice />
     </Box>
   );
