@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Wrap, WrapItem } from "@chakra-ui/react";
 import { getChoices } from "../../api/choices.api";
 import { IChoice } from "../../types";
-import ChoiceCard from "../../components/ChoiceCard";
+import ChoiceCard from "../../components/BackOffice/ChoiceCard";
 
 interface ChoicesListProps {}
 
