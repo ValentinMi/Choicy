@@ -10,7 +10,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { getChoices, putProposalChoice } from "../api/choices.api";
 import ChoiceResult from "../components/ChoiceResult";
-import ProfileMenu from "../components/ProfileMenu";
+import ProfileMenu from "../components/BackOffice/ProfileMenu";
 import Proposal from "../components/Proposal";
 import { AuthContext } from "../context/auth.context";
 import { IChoice } from "../types";

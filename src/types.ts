@@ -9,6 +9,10 @@ export type IChoice = {
 export type IProposal = {
   title: string;
   imageUrl: string;
+  image: {
+    data: Buffer;
+    contentType: string;
+  };
   chosen: number;
   rate?: number;
 };

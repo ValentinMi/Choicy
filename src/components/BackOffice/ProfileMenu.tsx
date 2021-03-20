@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { AuthContext } from "../context/auth.context";
+import { AuthContext } from "../../context/auth.context";
 
 export interface ProfileMenuProps {}
 

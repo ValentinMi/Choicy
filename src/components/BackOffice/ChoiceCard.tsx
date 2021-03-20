@@ -3,15 +3,15 @@ import { Image } from "@chakra-ui/image";
 import {
   Box,
   Center,
-  Divider,
   Flex,
   Heading,
-  Stack,
+  SimpleGrid,
   Text,
 } from "@chakra-ui/layout";
+import { Tag } from "@chakra-ui/tag";
 import { Collapse } from "@chakra-ui/transition";
 import React from "react";
-import { IChoice } from "../types";
+import { IChoice } from "../../types";
 import ChoiceDeleteButton from "./ChoiceDeleteButton";
 
 interface ChoiceCardProps {
@@ -26,29 +26,26 @@ const ChoiceCard: React.FC<ChoiceCardProps> = ({ choice, fetchChoices }) => {
     <Box
       borderRadius="10px"
       w="30vw"
-      boxShadow="lg"
+      boxShadow="dark-lg"
       bg="white"
       userSelect="none"
     >
       <Center
         onClick={onToggle}
         h="50px"
-        background="#C1C1C1"
         cursor="pointer"
         justifyContent="space-around"
-        borderRadius="10px"
       >
-        <Text>
-          {choice.title}: {choice.vote}
-        </Text>
-        <Text>{choice.category.title}</Text>
+        <Text fontWeight="bold">{choice.title}</Text>
+        <Text>{choice.vote} votes</Text>
+        <Tag colorScheme="green">{choice.category.title}</Tag>
       </Center>
       <Collapse in={isOpen} animateOpacity>
-        <Box m={1}>
-          <Stack>
+        <Box my={3} pl={3}>
+          <SimpleGrid columns={2} spacing={2}>
             {choice.proposals.map((prop) => {
               return (
-                <Flex key={prop.title} align="baseline">
+                <Flex key={prop.title} align="baseline" justify="space-evenly">
                   <Heading fontSize="md" w="40%">
                     {prop.title}:
                   </Heading>
@@ -56,19 +53,25 @@ const ChoiceCard: React.FC<ChoiceCardProps> = ({ choice, fetchChoices }) => {
                 </Flex>
               );
             })}
-          </Stack>
+          </SimpleGrid>
         </Box>
-        <Box display="flex" flexWrap="wrap" m={2}>
+        <Box display="flex" flexWrap="wrap" m={2} h="300px">
           {choice.proposals.map((prop, i) => {
             return (
-              <Box key={i} w="50%" p={1}>
-                <Image src={prop.imageUrl} alt={prop.title} />
+              <Box key={i} boxSize="50%" p={1} fit="cover">
+                <Image
+                  src={`data:${
+                    prop.image.contentType
+                  };base64,${prop.image.data.toString("base64")}`}
+                  alt={prop.title}
+                  boxSize="100%"
+                  fit="cover"
+                />
               </Box>
             );
           })}
         </Box>
-        <Divider />
-        <Box display="flex" justifyContent="flex-end" p={1}>
+        <Box display="flex" justifyContent="flex-end" pr={3} pb={3}>
           <ChoiceDeleteButton id={choice._id} refresh={fetchChoices} />
         </Box>
       </Collapse>
