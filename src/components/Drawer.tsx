@@ -44,6 +44,10 @@ const DrawerMenu: React.FC<DrawerProps> = ({ children }) => {
         onClick={onOpen}
         aria-label="menu"
         icon={<HamburgerIcon />}
+        position="absolute"
+        top="0"
+        left="0"
+        margin={1}
       ></IconButton>
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay>
