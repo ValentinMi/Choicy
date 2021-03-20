@@ -19,6 +19,15 @@ export const getChoiceById = async (id: string) => {
   }
 };
 
+export const deleteChoiceById = async (id: string) => {
+  try {
+    const { data } = await axios.delete(ROUTES.CHOICE(id));
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const putProposalChoice = async (
   choideId: string,
   proposalIndex: number
