@@ -33,6 +33,10 @@ const menuList = [
     path: "/backoffice/users",
     label: "Users",
   },
+  {
+    path: "/",
+    label: "Home",
+  },
 ];
 
 const DrawerMenu: React.FC<DrawerProps> = ({ children }) => {
