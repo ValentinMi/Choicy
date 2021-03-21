@@ -62,9 +62,8 @@ const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
     }
   };
   const logout = () => {
-    const user = null;
     deleteStoredData();
-    setState({ ...state, user });
+    setState({ ...state, user: null });
   };
 
   const setUser = (token: string) => {

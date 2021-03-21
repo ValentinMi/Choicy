@@ -8,7 +8,6 @@ export type IChoice = {
 
 export type IProposal = {
   title: string;
-  imageUrl: string;
   image: {
     data: Buffer;
     contentType: string;
@@ -28,6 +27,7 @@ export type IUser = {
 };
 
 export type ICredentials = {
-  username: string;
+  username?: string;
+  email: string;
   password: string;
 };

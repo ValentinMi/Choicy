@@ -21,6 +21,7 @@ const Register: React.FC<RegisterProps> = () => {
   const [registerForm, setRegisterForm] = useState({
     username: "",
     password: "",
+    email: "",
     confirm_password: "",
   });
   let { setUser } = useContext(AuthContext);
@@ -36,6 +37,7 @@ const Register: React.FC<RegisterProps> = () => {
     if (registerForm.password === registerForm.confirm_password) {
       const res = await register({
         username: registerForm.username,
+        email: registerForm.email,
         password: registerForm.password,
       });
       if (res?.response?.status >= 400 && res?.response?.status <= 410) {
@@ -64,6 +66,18 @@ const Register: React.FC<RegisterProps> = () => {
               value={registerForm.username}
             />
           </FormControl>
+          <Box mt={4}>
+            <FormControl isRequired>
+              <FormLabel>Email</FormLabel>
+              <Input
+                onChange={handleChange}
+                name="email"
+                type="email"
+                value={registerForm.email}
+                autoComplete="on"
+              />
+            </FormControl>
+          </Box>
           <Box mt={4}>
             <FormControl isRequired>
               <FormLabel>Password</FormLabel>
