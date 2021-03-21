@@ -18,7 +18,7 @@ const Login: React.FC<LoginProps> = () => {
   const { login, errorLogin } = useContext(AuthContext);
 
   const [loginForm, setLoginForm] = useState({
-    username: "",
+    email: "",
     password: "",
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,11 +35,11 @@ const Login: React.FC<LoginProps> = () => {
         {errorLogin && <ErrorMessage children="Wrong username or password" />}
         <form onSubmit={handleSubmit}>
           <FormControl isRequired>
-            <FormLabel>Username</FormLabel>
+            <FormLabel>Email</FormLabel>
             <Input
               onChange={handleChange}
-              name="username"
-              value={loginForm.username}
+              name="email"
+              value={loginForm.email}
             />
           </FormControl>
           <Box mt={4}>
