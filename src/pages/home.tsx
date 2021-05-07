@@ -21,7 +21,7 @@ import shuffleArray from "../utils/shuffleArray";
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
-  const [loader, setLoader] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [choices, setChoices] = useState<IChoice[]>([]);
   const [currentChoiceIndex, setCurrentChoiceIndex] = useState<number>(0);
   const [choiceHistory, setChoiceHistory] = useState<string[]>([]);
@@ -48,11 +48,11 @@ const Home: React.FC<HomeProps> = () => {
 
   useEffect(() => {
     async function fetch() {
-      setLoader(true);
+      setIsLoading(true);
       let data = await getChoices();
       data = shuffleArray(data);
       setChoices(data);
-      setLoader(false);
+      setIsLoading(false);
     }
     fetch();
   }, []);
@@ -91,7 +91,7 @@ const Home: React.FC<HomeProps> = () => {
           </Flex>
         )}
       </Box>
-      {loader ? (
+      {isLoading ? (
         <Center
           h="100vh"
           w="100vw"
