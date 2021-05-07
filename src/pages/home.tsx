@@ -51,7 +51,6 @@ const Home: React.FC<HomeProps> = () => {
       setLoader(true);
       let data = await getChoices();
       data = shuffleArray(data);
-      console.log(data);
       setChoices(data);
       setLoader(false);
     }
