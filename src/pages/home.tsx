@@ -1,9 +1,12 @@
 import {
   Box,
   Button,
+  Center,
   Flex,
+  Heading,
   Link,
   SimpleGrid,
+  Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useCallback, useContext, useEffect, useState } from "react";
@@ -18,6 +21,7 @@ import shuffleArray from "../utils/shuffleArray";
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
+  const [loader, setLoader] = useState<boolean>(false);
   const [choices, setChoices] = useState<IChoice[]>([]);
   const [currentChoiceIndex, setCurrentChoiceIndex] = useState<number>(0);
   const [choiceHistory, setChoiceHistory] = useState<string[]>([]);
@@ -44,15 +48,18 @@ const Home: React.FC<HomeProps> = () => {
 
   useEffect(() => {
     async function fetch() {
+      setLoader(true);
       let data = await getChoices();
       data = shuffleArray(data);
+      console.log(data);
       setChoices(data);
+      setLoader(false);
     }
     fetch();
   }, []);
 
   return (
-    <Box bg="black">
+    <Box>
       <Box
         w="100%"
         position="absolute"
@@ -85,25 +92,43 @@ const Home: React.FC<HomeProps> = () => {
           </Flex>
         )}
       </Box>
-      {choices.length > 0 && (
-        <Box>
-          <SimpleGrid columns={2} row={2} overflow="hidden" position="relative">
-            {choices[currentChoiceIndex].proposals.map((proposal, i) => (
-              <Proposal
-                key={proposal.title + i}
-                proposalIndex={i}
-                info={proposal}
-                onProposalClick={handleProposalClick}
-              />
-            ))}
-          </SimpleGrid>
-          <ChoiceResult
-            choiceObjectId={choices[currentChoiceIndex]._id}
-            onNextClick={handleNextClick}
-            isOpen={isOpen}
-            isLastChoice={calculIsLastChoice}
-          />
-        </Box>
+      {loader ? (
+        <Center
+          h="100vh"
+          w="100vw"
+          bgColor="gray.600"
+          display="flex"
+          flexDirection="column"
+        >
+          <Heading color="white">Loading</Heading>
+          <Spinner size="xl" color="white" mt={10} />
+        </Center>
+      ) : (
+        choices.length > 0 && (
+          <Box>
+            <SimpleGrid
+              columns={2}
+              row={2}
+              overflow="hidden"
+              position="relative"
+            >
+              {choices[currentChoiceIndex].proposals.map((proposal, i) => (
+                <Proposal
+                  key={proposal.title + i}
+                  proposalIndex={i}
+                  info={proposal}
+                  onProposalClick={handleProposalClick}
+                />
+              ))}
+            </SimpleGrid>
+            <ChoiceResult
+              choiceObjectId={choices[currentChoiceIndex]._id}
+              onNextClick={handleNextClick}
+              isOpen={isOpen}
+              isLastChoice={calculIsLastChoice}
+            />
+          </Box>
+        )
       )}
     </Box>
   );
