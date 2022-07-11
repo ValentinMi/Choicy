@@ -1,21 +1,15 @@
 import {
   Box,
-  Button,
   Center,
-  Flex,
   Heading,
-  Link,
   SimpleGrid,
   Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
 import { getChoices, putProposalChoice } from "../api/choices.api";
 import ChoiceResult from "../components/ChoiceResult";
-import ProfileMenu from "../components/BackOffice/ProfileMenu";
 import Proposal from "../components/Proposal";
-import { AuthContext } from "../context/auth.context";
 import { IChoice } from "../types";
 import shuffleArray from "../utils/shuffleArray";
 interface HomeProps {}
@@ -26,9 +20,6 @@ const Home: React.FC<HomeProps> = () => {
   const [currentChoiceIndex, setCurrentChoiceIndex] = useState<number>(0);
   const [choiceHistory, setChoiceHistory] = useState<string[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    state: { user },
-  } = useContext(AuthContext);
 
   const handleNextClick = () => {
     onClose();
@@ -59,41 +50,9 @@ const Home: React.FC<HomeProps> = () => {
 
   return (
     <Box>
-      <Box
-        w="100%"
-        position="absolute"
-        zIndex="5"
-        display="flex"
-        justifyContent="flex-end"
-      >
-        {user ? (
-          <ProfileMenu />
-        ) : (
-          <Flex m={[1, 2]} direction={["column", "row"]} alignItems="flex-end">
-            <Link
-              as={RouterLink}
-              to="/login"
-              opacity="0.5"
-              m={[1, 2]}
-              _hover={{ textDecoration: "none", opacity: 1 }}
-            >
-              <Button size="md">Sign in</Button>
-            </Link>
-            <Link
-              as={RouterLink}
-              to="/register"
-              opacity="0.5"
-              m={[1, 2]}
-              _hover={{ textDecoration: "none", opacity: 1 }}
-            >
-              <Button size="md">Sign Up</Button>
-            </Link>
-          </Flex>
-        )}
-      </Box>
       {isLoading ? (
         <Center
-          h="100vh"
+          h="100%"
           w="100vw"
           bgColor="gray.600"
           display="flex"
@@ -104,12 +63,13 @@ const Home: React.FC<HomeProps> = () => {
         </Center>
       ) : (
         choices.length > 0 && (
-          <Box>
+          <Box position='relative'> 
             <SimpleGrid
-              columns={2}
-              row={2}
+              columns={[1, 2]}
+              row={[1, 2]}
               overflow="hidden"
               position="relative"
+              h="calc(100vh - 72px)"
             >
               {choices[currentChoiceIndex].proposals.map((proposal, i) => (
                 <Proposal

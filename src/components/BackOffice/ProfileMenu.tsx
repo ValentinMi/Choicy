@@ -7,7 +7,10 @@ import {
   Box,
   Link,
   MenuDivider,
+  useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
+
 import React, { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
@@ -19,11 +22,14 @@ const ProfileMenu: React.FC<ProfileMenuProps> = () => {
     state: { user },
     logout,
   } = useContext(AuthContext);
+
+  const { colorMode } = useColorMode();  
+
   return (
     <Box>
       <Menu>
         <MenuButton
-          backgroundColor="white"
+          backgroundColor={useColorModeValue("white", "gray.700")}
           opacity="0.5"
           m={2}
           borderRadius={5}
@@ -31,7 +37,11 @@ const ProfileMenu: React.FC<ProfileMenuProps> = () => {
           h={10}
           _hover={{ opacity: 1 }}
         >
-          <ChevronDownIcon w="1.5em" h="1.5em" />
+          <ChevronDownIcon
+            w="1.5em"
+            h="1.5em"
+            color={colorMode === "light" ? "black" : "white"}
+          />
         </MenuButton>
         <MenuList p={1}>
           <Link

@@ -5,7 +5,7 @@ interface AwaitingChoicesProps {}
 
 const AwaitingChoices: React.FC<AwaitingChoicesProps> = () => {
   return (
-    <Box>
+    <Box py={2} px={2}>
       <Heading>AwaitingChoices</Heading>
     </Box>
   );

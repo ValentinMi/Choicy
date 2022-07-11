@@ -5,7 +5,7 @@ interface CategoriesProps {}
 
 const Categories: React.FC<CategoriesProps> = () => {
   return (
-    <Box>
+    <Box py={2} px={2}>
       <Heading>Categories</Heading>
     </Box>
   );
