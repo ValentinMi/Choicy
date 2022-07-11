@@ -4,6 +4,7 @@ import {
   Heading,
   SimpleGrid,
   Spinner,
+  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState } from "react";
@@ -48,13 +49,15 @@ const Home: React.FC<HomeProps> = () => {
     fetch();
   }, []);
 
+  const loaderBgColor = useColorModeValue("white", "gray.700")
+
   return (
     <Box>
       {isLoading ? (
         <Center
-          h="100%"
+          h="calc(100vh - 72px)"
           w="100vw"
-          bgColor="gray.600"
+          bgColor={loaderBgColor}
           display="flex"
           flexDirection="column"
         >
@@ -63,7 +66,7 @@ const Home: React.FC<HomeProps> = () => {
         </Center>
       ) : (
         choices.length > 0 && (
-          <Box position='relative'> 
+          <Box position="relative">
             <SimpleGrid
               columns={[1, 2]}
               row={[1, 2]}

@@ -42,7 +42,7 @@ const Proposal: React.FC<ProposalProps> = ({
         textAlign="center"
         position="relative"
         borderRadius={0}
-        aria
+        aria-label={`Click here to vote for ${info.title}`}
         _hover={{ transform: "scale(1.2)"}}
         _focus={{ transform: "scale(1.2)"}}
         _active={{bgColor: "unset"}}

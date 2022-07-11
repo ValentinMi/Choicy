@@ -35,13 +35,13 @@ const Register: React.FC<RegisterProps> = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (registerForm.password === registerForm.confirm_password) {
-      const res: any = await register({
+      const res = await register({
         username: registerForm.username,
         email: registerForm.email,
         password: registerForm.password,
       });
-      if (res?.response?.status >= 400 && res?.response?.status <= 410) {
-        setError(res.response.data);
+      if (res?.status >= 400 && res?.status <= 410) {
+        setError(res.data);
       } else {
         if (res.headers["choicy-auth-token"]) {
           setStoredData(res.headers["choicy-auth-token"]);
