@@ -30,7 +30,7 @@ const ChoiceDeleteButton: React.FC<ChoiceDeleteButtonProps> = ({
       {({ isOpen, onClose }) => (
         <>
           <PopoverTrigger>
-            <Button colorScheme="red">Delete</Button>
+            <Button colorScheme="red" display="block" ml="auto">Delete</Button>
           </PopoverTrigger>
           <Portal>
             <PopoverContent>

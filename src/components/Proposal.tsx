@@ -1,4 +1,4 @@
-import { Box, Center, Heading, keyframes } from "@chakra-ui/react";
+import { Box, Button, Heading, keyframes, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import { IProposal } from "../types";
 
@@ -20,14 +20,14 @@ const Proposal: React.FC<ProposalProps> = ({
 
   return (
     <Box
-      h="50vh"
+      h={["25vh", "50vh"]}
       w="100%"
       overflow="hidden"
       position="relative"
       animation={`${fade} ease 2s`}
       onClick={() => onProposalClick(proposalIndex)}
     >
-      <Center
+      <Button
         h="100%"
         w="100%"
         bgImage={`url("data:${
@@ -37,22 +37,28 @@ const Proposal: React.FC<ProposalProps> = ({
         bgSize="cover"
         bgRepeat="no-repeat"
         transition="all 1.5s"
-        _hover={{ transform: "scale(1.2)" }}
         p={5}
+        cursor="pointer"
         textAlign="center"
+        position="relative"
+        borderRadius={0}
+        aria
+        _hover={{ transform: "scale(1.2)"}}
+        _focus={{ transform: "scale(1.2)"}}
+        _active={{bgColor: "unset"}}
       >
         <Heading
           as="h2"
           size="lg"
-          color="white"
+          color={useColorModeValue("black", "white")}
           fontWeight="bold"
-          bgColor="black"
+          bgColor={useColorModeValue("white", "gray.700")}
           borderRadius="10px"
           p="10px"
         >
           {info.title}
         </Heading>
-      </Center>
+      </Button>
     </Box>
   );
 };

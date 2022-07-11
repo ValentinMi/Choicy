@@ -5,11 +5,15 @@ import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import AuthProvider from "./context/auth.context";
+import "./App.css";
+import theme from "./theme";
+import { ColorModeScript } from "@chakra-ui/react";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <App />
       </AuthProvider>
     </BrowserRouter>

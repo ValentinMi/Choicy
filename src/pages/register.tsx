@@ -35,7 +35,7 @@ const Register: React.FC<RegisterProps> = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (registerForm.password === registerForm.confirm_password) {
-      const res = await register({
+      const res: any = await register({
         username: registerForm.username,
         email: registerForm.email,
         password: registerForm.password,
@@ -54,8 +54,8 @@ const Register: React.FC<RegisterProps> = () => {
   };
 
   return (
-    <Center h="100vh">
-      <Box boxShadow="dark-lg" p={5} maxW={["280px", "auto"]}>
+    <Center h="100vh" p={5} flexDirection="column">
+      <Box boxShadow="dark-lg" p={5} maxW={["600px", "auto"]} w="100%">
         <form onSubmit={handleSubmit}>
           {error && <ErrorMessage children={error} />}
           <FormControl isRequired>
@@ -115,6 +115,9 @@ const Register: React.FC<RegisterProps> = () => {
           </Link>
         </Center>
       </Box>
+      <Button as={RouterLink} to="/" mt={5} colorScheme="blue">
+        Return Home
+      </Button>
     </Center>
   );
 };

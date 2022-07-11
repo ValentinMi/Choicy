@@ -1,18 +1,13 @@
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Image } from "@chakra-ui/image";
-import {
-  Box,
-  Center,
-  Flex,
-  Heading,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/layout";
+import { Box, Flex, Heading, SimpleGrid, Text } from "@chakra-ui/layout";
 import { Tag } from "@chakra-ui/tag";
 import { Collapse } from "@chakra-ui/transition";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IChoice } from "../../types";
 import ChoiceDeleteButton from "./ChoiceDeleteButton";
+import colors from "../../assets/mock.colorsTag.json";
+import { Button, useColorModeValue } from "@chakra-ui/react";
 
 interface ChoiceCardProps {
   choice: IChoice;
@@ -21,32 +16,48 @@ interface ChoiceCardProps {
 
 const ChoiceCard: React.FC<ChoiceCardProps> = ({ choice, fetchChoices }) => {
   const { isOpen, onToggle } = useDisclosure();
+  const [tagColor, setTagColor] = useState<string>("");
+
+  useEffect(() => {
+    const currentColor = colors.filter(
+      (color) => color.name === choice.category.title
+    );
+    setTagColor(currentColor[0].color);
+  }, [setTagColor, choice.category.title]);
 
   return (
     <Box
       borderRadius="10px"
-      w="30vw"
+      w="100%"
       boxShadow="dark-lg"
-      bg="white"
+      bgColor={useColorModeValue("white", "gray.700")}
+      height={isOpen ? "100%" : ""}
       userSelect="none"
     >
-      <Center
+      <Button
         onClick={onToggle}
         h="50px"
+        w="100%"
         cursor="pointer"
-        justifyContent="space-around"
+        bgColor={useColorModeValue("white", "gray.700")}
+        justifyContent="space-between"
+        _focus={{ bgColor: "unset" }}
+        _focusVisible={{ boxShadow: "var(--chakra-shadows-outline)" }}
       >
-        <Text fontWeight="bold">{choice.title}</Text>
+        <Text fontWeight="bold" flexBasis="30%" textAlign="left">{choice.title}</Text>
         <Text>{choice.vote} votes</Text>
-        <Tag colorScheme="green">{choice.category.title}</Tag>
-      </Center>
-      <Collapse in={isOpen} animateOpacity>
-        <Box my={3} pl={3}>
+        <Tag colorScheme={tagColor}>{choice.category.title}</Tag>
+      </Button>
+      <Collapse
+        in={isOpen}
+        animateOpacity
+      >
+        <Box my={3} pl={3} >
           <SimpleGrid columns={2} spacing={2}>
             {choice.proposals.map((prop) => {
               return (
                 <Flex key={prop.title} align="baseline" justify="space-evenly">
-                  <Heading fontSize="md" w="40%">
+                  <Heading fontSize="md" w="80%">
                     {prop.title}:
                   </Heading>
                   <Text>{prop.chosen}</Text>
@@ -71,7 +82,7 @@ const ChoiceCard: React.FC<ChoiceCardProps> = ({ choice, fetchChoices }) => {
             );
           })}
         </Box>
-        <Box display="flex" justifyContent="flex-end" pr={3} pb={3}>
+        <Box display={isOpen ? "block" : "none"} pr={3} pb={3}>
           <ChoiceDeleteButton id={choice._id} refresh={fetchChoices} />
         </Box>
       </Collapse>

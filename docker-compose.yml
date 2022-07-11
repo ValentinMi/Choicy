@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  frontend:
+    container_name: Choicy_frontend
+    image: node:14-alpine
+    working_dir: /app
+    volumes:
+      - './:/app'
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    command: yarn start
+    environment:
+      - CHOKIDAR_USEPOLLING=true

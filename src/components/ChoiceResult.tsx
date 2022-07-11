@@ -6,6 +6,7 @@ import {
   Icon,
   IconButton,
   keyframes,
+  useColorModeValue,
   useMediaQuery,
 } from "@chakra-ui/react";
 import { CSSObject } from "@emotion/react";
@@ -33,6 +34,10 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
   onNextClick,
   isLastChoice,
 }) => {
+
+  const colorOR = useColorModeValue("black", "white");
+  const colorBG = useColorModeValue("white", "gray.700");
+
   const [choice, setChoice] = useState<IChoice>();
   const [chartCanBeDisplayed] = useMediaQuery("(min-width: 720px)");
   const [isResultChart, setIsResultChart] = useState<boolean>(true);
@@ -67,9 +72,10 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
     const base: CSSObject = {
       position: "absolute",
       top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      backgroundColor: "white",
+      left: "0",
+      right: "0",
+      margin: "auto"
+      // transform: "translate(-50%, -50%)",
     };
     if (isOpen)
       return {
@@ -79,6 +85,7 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
         width: "70vw",
         maxWidth: "500px",
         minHeight: "562px",
+        
       };
     return { ...base, borderRadius: "50%", height: "80px", width: "80px" };
   }, [isOpen]);
@@ -110,6 +117,7 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
         justify="center"
         align="center"
         zIndex={7}
+        bg={colorBG}
       >
         {!isOpen ? (
           <Heading
@@ -117,6 +125,7 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
             size="lg"
             fontWeight="bold"
             borderRadius="10px"
+            color={colorOR}
             p="10px"
           >
             OR
