@@ -39,19 +39,16 @@ const menuList = [
   },
 ];
 
-const DrawerMenu: React.FC<DrawerProps> = ({ children }) => {
+const DrawerMenu: React.FC<DrawerProps> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box>
+    <Box my={[1, 2]} ml={[1, 2]}>
       <IconButton
         onClick={onOpen}
         aria-label="menu"
         icon={<HamburgerIcon />}
-        position="absolute"
-        top="0"
-        left="0"
-        margin={1}
+        outline={1}
       ></IconButton>
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay>
@@ -68,7 +65,7 @@ const DrawerMenu: React.FC<DrawerProps> = ({ children }) => {
                         to={link.path}
                         ml={3}
                         _focus={{
-                          boxShadow: "none",
+                          textDecoration: "underline",
                         }}
                         onClick={onClose}
                       >

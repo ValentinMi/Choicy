@@ -30,8 +30,8 @@ const Login: React.FC<LoginProps> = () => {
     await login(loginForm);
   };
   return (
-    <Center h="100vh">
-      <Box boxShadow="dark-lg" p={5} maxW={["291px", "auto"]}>
+    <Center h="100vh" p={5} flexDirection="column">
+      <Box boxShadow="dark-lg" p={5} maxW={["600px", "auto"]} w="100%">
         {errorLogin && <ErrorMessage children="Wrong username or password" />}
         <form onSubmit={handleSubmit}>
           <FormControl isRequired>
@@ -55,7 +55,7 @@ const Login: React.FC<LoginProps> = () => {
             </FormControl>
           </Box>
           <Center>
-            <Button mt={4} type="submit" colorScheme="blue">
+            <Button mt={4} type="submit" colorScheme="blue" bg="primary">
               Login
             </Button>
           </Center>
@@ -67,6 +67,8 @@ const Login: React.FC<LoginProps> = () => {
           </Link>
         </Center>
       </Box>
+
+      <Button as={RouterLink} to="/" mt={10} colorScheme="green">Return Home</Button>
     </Center>
   );
 };

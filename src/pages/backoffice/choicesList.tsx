@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Heading, Wrap, WrapItem } from "@chakra-ui/react";
 import { getChoices } from "../../api/choices.api";
 import { IChoice } from "../../types";
 import ChoiceCard from "../../components/BackOffice/ChoiceCard";
@@ -19,28 +19,33 @@ const ChoicesList: React.FC<ChoicesListProps> = () => {
   }, []);
 
   return (
-    <Wrap
-      display="flex"
-      align="start"
-      spacing="30px"
-      pt={5}
-      sx={{
-        ul: {
-          margin: 0,
-          padding: 0,
-          justifyContent: "center",
-          width: "100%",
-        },
-      }}
-    >
-      {choices.map((choice) => {
-        return (
-          <WrapItem key={choice._id}>
-            <ChoiceCard choice={choice} fetchChoices={fetchChoices} />
-          </WrapItem>
-        );
-      })}
-    </Wrap>
+    <Box py={2} px={2}>
+      <Heading>Choices list</Heading>
+
+      <Wrap
+        display="flex"
+        align="stretch"
+        spacing="30px"
+        py={2}
+        px={2}
+        sx={{
+          ul: {
+            margin: 0,
+            padding: 0,
+            justifyContent: "center",
+            width: "100%",
+          },
+        }}
+      >
+        {choices.map((choice) => {
+          return (
+            <WrapItem w={["100%", "100%", "50%", "30%"]} key={choice._id}>
+              <ChoiceCard choice={choice} fetchChoices={fetchChoices} />
+            </WrapItem>
+          );
+        })}
+      </Wrap>
+    </Box>
   );
 };
 

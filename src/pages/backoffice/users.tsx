@@ -5,7 +5,7 @@ export interface UsersProps {}
 
 const Users: React.FC<UsersProps> = () => {
   return (
-    <Box>
+    <Box py={2} px={2}>
       <Heading>Users</Heading>
     </Box>
   );
