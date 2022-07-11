@@ -6,7 +6,6 @@ import { Collapse } from "@chakra-ui/transition";
 import React, { useEffect, useState } from "react";
 import { IChoice } from "../../types";
 import ChoiceDeleteButton from "./ChoiceDeleteButton";
-import colors from "../../assets/mock.colorsTag.json";
 import { Button, useColorModeValue } from "@chakra-ui/react";
 
 interface ChoiceCardProps {
@@ -19,6 +18,25 @@ const ChoiceCard: React.FC<ChoiceCardProps> = ({ choice, fetchChoices }) => {
   const [tagColor, setTagColor] = useState<string>("");
 
   useEffect(() => {
+    const colors = [
+      {
+        name: "Food",
+        color: "red",
+      },
+      {
+        name: "Video games",
+        color: "blue",
+      },
+      {
+        name: "Animals",
+        color: "green",
+      },
+      {
+        name: "Sport",
+        color: "yellow",
+      },
+    ];
+    
     const currentColor = colors.filter(
       (color) => color.name === choice.category.title
     );
@@ -44,15 +62,14 @@ const ChoiceCard: React.FC<ChoiceCardProps> = ({ choice, fetchChoices }) => {
         _focus={{ bgColor: "unset" }}
         _focusVisible={{ boxShadow: "var(--chakra-shadows-outline)" }}
       >
-        <Text fontWeight="bold" flexBasis="30%" textAlign="left">{choice.title}</Text>
+        <Text fontWeight="bold" flexBasis="30%" textAlign="left">
+          {choice.title}
+        </Text>
         <Text>{choice.vote} votes</Text>
         <Tag colorScheme={tagColor}>{choice.category.title}</Tag>
       </Button>
-      <Collapse
-        in={isOpen}
-        animateOpacity
-      >
-        <Box my={3} pl={3} >
+      <Collapse in={isOpen} animateOpacity>
+        <Box my={3} pl={3}>
           <SimpleGrid columns={2} spacing={2}>
             {choice.proposals.map((prop) => {
               return (
