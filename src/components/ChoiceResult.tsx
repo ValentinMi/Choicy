@@ -71,7 +71,7 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
   const style = useMemo(() => {
     const base: CSSObject = {
       position: "absolute",
-      top: "50%",
+      top: "10%",
       left: "0",
       right: "0",
       margin: "auto"
