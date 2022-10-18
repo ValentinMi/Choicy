@@ -55,7 +55,7 @@ const Login: React.FC<LoginProps> = () => {
             </FormControl>
           </Box>
           <Center>
-            <Button mt={4} type="submit" colorScheme="blue" bg="primary">
+            <Button mt={4} type="submit" colorScheme="blue">
               Login
             </Button>
           </Center>
@@ -68,7 +68,7 @@ const Login: React.FC<LoginProps> = () => {
         </Center>
       </Box>
 
-      <Button as={RouterLink} to="/" mt={10} colorScheme="green">Return Home</Button>
+      <Button as={RouterLink} to="/" mt={10} colorScheme="blue">Return Home</Button>
     </Center>
   );
 };
