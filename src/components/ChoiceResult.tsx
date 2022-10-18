@@ -35,8 +35,9 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
   isLastChoice,
 }) => {
 
-  const colorOR = useColorModeValue("black", "white");
-  const colorBG = useColorModeValue("white", "gray.700");
+  const colorOR = useColorModeValue("black", !isOpen ? "" : "white");
+  const colorBG = useColorModeValue(!isOpen ? "" : "white", !isOpen ? "" : "gray.700");
+  const colorORBG = useColorModeValue("white", "gray.700");
 
   const [choice, setChoice] = useState<IChoice>();
   const [chartCanBeDisplayed] = useMediaQuery("(min-width: 720px)");
@@ -99,6 +100,21 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
 
   return (
     <>
+      <Heading
+        as="h2"
+        size="lg"
+        fontWeight="bold"
+        borderRadius="50%"
+        color={colorOR}
+        bg={colorORBG}
+        position="absolute"
+        left="50%"
+        top="50%"
+        transform="translateX(-50%)"
+        p="10px"
+      >
+        OR
+      </Heading>
       {isOpen && (
         <Box
           position="absolute"
@@ -120,16 +136,7 @@ const ChoiceResult: React.FC<ChoiceResultProps> = ({
         bg={colorBG}
       >
         {!isOpen ? (
-          <Heading
-            as="h2"
-            size="lg"
-            fontWeight="bold"
-            borderRadius="10px"
-            color={colorOR}
-            p="10px"
-          >
-            OR
-          </Heading>
+          null
         ) : (
           <Flex
             direction="column"
